@@ -1,4 +1,8 @@
 
+👩‍💻 I'm currently working on...
+
+
+
 ## *Simple DataBricks Project*
 
 #### *Architecture*  
@@ -15,3 +19,15 @@ B. Silver Layer:
 C. Gold Layer:  
 - Dimensional Data Model (Business Transformation)  
 - Ready for BI and analysis  
+
+----
+## *Feedback*
+
+*If you have any feedback, please reach out to us at omars.soub@gmail.com*
+
+## 🔗 Links
+
+[*my github page-https://github.com/omars1234*](https://github.com/omars1234)
+
+## *🛠 Skills*
+*Python, R, SQL ,PowerBi ,Tableaue*
