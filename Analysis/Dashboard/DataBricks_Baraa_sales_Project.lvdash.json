@@ -1,0 +1,2002 @@
+{
+  "datasets": [
+    {
+      "name": "ad0e0277",
+      "displayName": "Customer Demographics Grouped by Marital Gender Country",
+      "queryLines": [
+        "USE CATALOG `workspace`;\n",
+        "USE SCHEMA `default`;\n",
+        "\n",
+        "--SELECT   *  FROM bara_slaes_project.gold.dimcustomer_infO;\n",
+        "\n",
+        "\n",
+        "\n",
+        "SELECT marital_status,Gender,Country,count(*) FROM bara_slaes_project.gold.dimcustomer_infO\n",
+        "GROUP BY marital_status,Gender,Country;\n",
+        "\n"
+      ]
+    },
+    {
+      "name": "3dd3ea1a",
+      "displayName": "Product Categories and Subcategories Overview",
+      "queryLines": [
+        "USE CATALOG `bara_slaes_project`;\n",
+        "USE SCHEMA `gold`;\n",
+        "\n",
+        "--SELECT   *  FROM   bara_slaes_project.gold.dimproduct_info;\n",
+        "\n",
+        "\n",
+        "\n",
+        "SELECT Category_Name,Sub_Category_Name,count(*) AS Count FROM bara_slaes_project.gold.dimproduct_info\n",
+        "GROUP BY Category_Name,Sub_Category_Name ORDER BY count(*) DESC;"
+      ]
+    },
+    {
+      "name": "b4a7ed3f",
+      "displayName": "Product Analysis Overview by Line and Count",
+      "queryLines": [
+        "USE CATALOG `bara_slaes_project`;\n",
+        "USE SCHEMA `gold`;\n",
+        "\n",
+        "--SELECT   *  FROM   bara_slaes_project.gold.dimproduct_info;\n",
+        "\n",
+        "SELECT Product_name,Product_Line,count(*) AS Count FROM bara_slaes_project.gold.dimproduct_info\n",
+        "GROUP BY Product_name,Product_Line ORDER BY count(*) DESC;"
+      ]
+    },
+    {
+      "name": "e6c9a50a",
+      "displayName": "Product Insights and Analytics Data Summary",
+      "queryLines": [
+        "USE CATALOG `workspace`;\n",
+        "USE SCHEMA `default`;\n",
+        "\n",
+        "SELECT   *  FROM   bara_slaes_project.gold.dimproduct_info;\n"
+      ]
+    },
+    {
+      "name": "f145f2a6",
+      "displayName": "Product Information Gold Table Data",
+      "queryLines": [
+        "USE CATALOG `bara_slaes_project`;\n",
+        "USE SCHEMA `gold`;\n",
+        "\n",
+        "SELECT   *  FROM   bara_slaes_project.gold.dimproduct_info;\n"
+      ]
+    },
+    {
+      "name": "ee538706",
+      "displayName": "Sales Orders Shipment and Pricing Insights",
+      "queryLines": [
+        "USE CATALOG `bara_slaes_project`;\n",
+        "USE SCHEMA `gold`;\n",
+        "\n",
+        "SELECT  Order_Date,Ship_Date,Due_Date,Sales,Quantity,Price   FROM   bara_slaes_project.gold.factable;"
+      ]
+    },
+    {
+      "name": "9d47dece",
+      "displayName": "Customer Sales and Product Info Overview",
+      "queryLines": [
+        "SELECT \r\n",
+        "cust.marital_status,\r\n",
+        "cust.Gender,\r\n",
+        "cust.Country,\r\n",
+        "fact.Sales,\r\n",
+        "fact.Order_Date,\r\n",
+        "prod.Category_Name,\r\n",
+        "prod.Sub_Category_Name,\r\n",
+        "prod.Product_Line,\r\n",
+        "prod.Product_name\r\n",
+        " FROM bara_slaes_project.gold.dimcustomer_infO AS cust\r\n",
+        "LEFT JOIN bara_slaes_project.gold.factable AS fact\r\n",
+        "ON cust.Customer_ID=fact.Customer_ID\r\n",
+        "LEFT JOIN bara_slaes_project.gold.dimproduct_info AS prod\r\n",
+        "ON fact.Product_ID=prod.Product_ID"
+      ],
+      "catalog": "bara_slaes_project",
+      "schema": "gold"
+    }
+  ],
+  "pages": [
+    {
+      "name": "877559b9",
+      "displayName": "DimCustomer_QuikAnalysis",
+      "layout": [
+        {
+          "widget": {
+            "name": "d7a327ff",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ad0e0277",
+                  "fields": [
+                    {
+                      "name": "marital_status",
+                      "expression": "`marital_status`"
+                    },
+                    {
+                      "name": "sum(count(1))",
+                      "expression": "SUM(`count(1)`)"
+                    },
+                    {
+                      "name": "Gender",
+                      "expression": "`Gender`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "sum(count(1))",
+                  "axis": {
+                    "title": "count",
+                    "hideLabels": false,
+                    "hideGrid": false
+                  },
+                  "displayName": "count",
+                  "scale": {
+                    "type": "quantitative",
+                    "reverse": false
+                  }
+                },
+                "y": {
+                  "fieldName": "Gender",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "color": {
+                  "fieldName": "marital_status",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "frame": {
+                "title": "Gender/Maital_status Count",
+                "showTitle": true,
+                "showDescription": false
+              },
+              "mark": {
+                "layout": "group"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 18,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "6d768800",
+            "queries": [
+              {
+                "name": "66f4fcf1f9984d7f857543e66b22bedd",
+                "query": {
+                  "datasetName": "ad0e0277",
+                  "fields": [
+                    {
+                      "name": "Gender",
+                      "expression": "`Gender`"
+                    },
+                    {
+                      "name": "column_370ba8a1158",
+                      "expression": "SUM(`count(1)`)"
+                    },
+                    {
+                      "name": "marital_status",
+                      "expression": "`marital_status`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Gender/Maital_status Count %",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"percentValues\":true,\"stacking\":null},\"coefficient\":1,\"hideXAxis\":false,\"hideYAxes\":false,\"yAxis\":[{\"title\":{\"text\":\"count\"},\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"series\":{\"column\":\"marital_status\",\"id\":\"column_370ba8a1147\"},\"x\":{\"column\":\"Gender\",\"id\":\"column_370ba8a1146\"},\"y\":[{\"column\":\"count(1)\",\"id\":\"column_370ba8a1158\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":true,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"column\",\"version\":2,\"reverseX\":false,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_370ba8a1158\":{\"type\":\"column\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":true,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
+                "query_name": "66f4fcf1f9984d7f857543e66b22bedd"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 18,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "14bad492",
+            "queries": [
+              {
+                "name": "66f4fcf1f9984d7f857543e66b22bedd",
+                "query": {
+                  "datasetName": "ad0e0277",
+                  "fields": [
+                    {
+                      "name": "Gender",
+                      "expression": "`Gender`"
+                    },
+                    {
+                      "name": "column_370ba8a1167",
+                      "expression": "SUM(`count(1)`)"
+                    },
+                    {
+                      "name": "Country",
+                      "expression": "`Country`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Gender/Country Count",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"title\":{\"text\":\"count\"},\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"series\":{\"column\":\"Country\",\"id\":\"column_370ba8a1170\"},\"x\":{\"column\":\"Gender\",\"id\":\"column_370ba8a1169\"},\"y\":[{\"column\":\"count(1)\",\"id\":\"column_370ba8a1167\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":true,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"column\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_370ba8a1167\":{\"type\":\"column\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":true,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
+                "query_name": "66f4fcf1f9984d7f857543e66b22bedd"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 24,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "3c0fd29a",
+            "queries": [
+              {
+                "name": "66f4fcf1f9984d7f857543e66b22bedd",
+                "query": {
+                  "datasetName": "ad0e0277",
+                  "fields": [
+                    {
+                      "name": "Gender",
+                      "expression": "`Gender`"
+                    },
+                    {
+                      "name": "column_370ba8a1167",
+                      "expression": "SUM(`count(1)`)"
+                    },
+                    {
+                      "name": "Country",
+                      "expression": "`Country`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Gender/Country Count %",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"percentValues\":true,\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"title\":{\"text\":\"count\"},\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"series\":{\"column\":\"Country\",\"id\":\"column_370ba8a1170\"},\"x\":{\"column\":\"Gender\",\"id\":\"column_370ba8a1169\"},\"y\":[{\"column\":\"count(1)\",\"id\":\"column_370ba8a1167\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":true,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"column\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_370ba8a1167\":{\"type\":\"column\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":true,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
+                "query_name": "66f4fcf1f9984d7f857543e66b22bedd"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 24,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "fb5a3f97",
+            "queries": [
+              {
+                "name": "66f4fcf1f9984d7f857543e66b22bedd",
+                "query": {
+                  "datasetName": "ad0e0277",
+                  "fields": [
+                    {
+                      "name": "marital_status",
+                      "expression": "`marital_status`"
+                    },
+                    {
+                      "name": "column_370ba8a1178",
+                      "expression": "SUM(`count(1)`)"
+                    },
+                    {
+                      "name": "Country",
+                      "expression": "`Country`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Maital_status/Country Count",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"series\":{\"column\":\"Country\",\"id\":\"column_370ba8a1176\"},\"x\":{\"column\":\"marital_status\",\"id\":\"column_370ba8a1175\"},\"y\":[{\"column\":\"count(1)\",\"id\":\"column_370ba8a1178\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":true,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"column\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_370ba8a1178\":{\"type\":\"column\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":true,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
+                "query_name": "66f4fcf1f9984d7f857543e66b22bedd"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 30,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "61914197",
+            "queries": [
+              {
+                "name": "66f4fcf1f9984d7f857543e66b22bedd",
+                "query": {
+                  "datasetName": "ad0e0277",
+                  "fields": [
+                    {
+                      "name": "marital_status",
+                      "expression": "`marital_status`"
+                    },
+                    {
+                      "name": "column_370ba8a1178",
+                      "expression": "SUM(`count(1)`)"
+                    },
+                    {
+                      "name": "Country",
+                      "expression": "`Country`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Maital_status/Country Count %",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"percentValues\":true,\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"series\":{\"column\":\"Country\",\"id\":\"column_370ba8a1176\"},\"x\":{\"column\":\"marital_status\",\"id\":\"column_370ba8a1175\"},\"y\":[{\"column\":\"count(1)\",\"id\":\"column_370ba8a1178\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":true,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"column\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_370ba8a1178\":{\"type\":\"column\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":true,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
+                "query_name": "66f4fcf1f9984d7f857543e66b22bedd"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 30,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "f39a4d07",
+            "queries": [
+              {
+                "name": "66f4fcf1f9984d7f857543e66b22bedd",
+                "query": {
+                  "datasetName": "ad0e0277",
+                  "fields": [
+                    {
+                      "name": "Gender",
+                      "expression": "`Gender`"
+                    },
+                    {
+                      "name": "column_370ba8a1186",
+                      "expression": "SUM(`count(1)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Gender Count",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"title\":{\"text\":\"count\"},\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"Gender\",\"id\":\"column_370ba8a1184\"},\"y\":[{\"column\":\"count(1)\",\"id\":\"column_370ba8a1186\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":true,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"column\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_370ba8a1186\":{\"type\":\"column\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":true,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
+                "query_name": "66f4fcf1f9984d7f857543e66b22bedd"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "92a651a2",
+            "queries": [
+              {
+                "name": "66f4fcf1f9984d7f857543e66b22bedd",
+                "query": {
+                  "datasetName": "ad0e0277",
+                  "fields": [
+                    {
+                      "name": "Gender",
+                      "expression": "`Gender`"
+                    },
+                    {
+                      "name": "column_370ba8a1186",
+                      "expression": "SUM(`count(1)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Gender Count %",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"title\":{\"text\":\"count\"},\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"Gender\",\"id\":\"column_370ba8a1184\"},\"y\":[{\"column\":\"count(1)\",\"id\":\"column_370ba8a1186\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":false,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"pie\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_370ba8a1186\":{\"name\":\"count %\",\"type\":\"pie\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":true,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
+                "query_name": "66f4fcf1f9984d7f857543e66b22bedd"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "b482432b",
+            "queries": [
+              {
+                "name": "66f4fcf1f9984d7f857543e66b22bedd",
+                "query": {
+                  "datasetName": "ad0e0277",
+                  "fields": [
+                    {
+                      "name": "marital_status",
+                      "expression": "`marital_status`"
+                    },
+                    {
+                      "name": "column_370ba8a1193",
+                      "expression": "SUM(`count(1)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Marital_status Count",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"title\":{\"text\":\"count\"},\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"marital_status\",\"id\":\"column_370ba8a1191\"},\"y\":[{\"column\":\"count(1)\",\"id\":\"column_370ba8a1193\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":true,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"column\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_370ba8a1193\":{\"type\":\"column\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":true,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
+                "query_name": "66f4fcf1f9984d7f857543e66b22bedd"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "40660b05",
+            "queries": [
+              {
+                "name": "66f4fcf1f9984d7f857543e66b22bedd",
+                "query": {
+                  "datasetName": "ad0e0277",
+                  "fields": [
+                    {
+                      "name": "marital_status",
+                      "expression": "`marital_status`"
+                    },
+                    {
+                      "name": "column_370ba8a1193",
+                      "expression": "SUM(`count(1)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Marital_status Count  %",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"title\":{\"text\":\"count\"},\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"marital_status\",\"id\":\"column_370ba8a1191\"},\"y\":[{\"column\":\"count(1)\",\"id\":\"column_370ba8a1193\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":false,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"pie\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_370ba8a1193\":{\"name\":\"count\",\"type\":\"pie\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":true,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
+                "query_name": "66f4fcf1f9984d7f857543e66b22bedd"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 6,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "29d991d2",
+            "queries": [
+              {
+                "name": "66f4fcf1f9984d7f857543e66b22bedd",
+                "query": {
+                  "datasetName": "ad0e0277",
+                  "fields": [
+                    {
+                      "name": "Country",
+                      "expression": "`Country`"
+                    },
+                    {
+                      "name": "column_370ba8a1202",
+                      "expression": "SUM(`count(1)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Country Count %",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"title\":{\"text\":\"count\"},\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"Country\",\"id\":\"column_370ba8a1200\"},\"y\":[{\"column\":\"count(1)\",\"id\":\"column_370ba8a1202\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":false,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"pie\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_370ba8a1202\":{\"name\":\"count\",\"type\":\"pie\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":true,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
+                "query_name": "66f4fcf1f9984d7f857543e66b22bedd"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 12,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "164dc2c6",
+            "queries": [
+              {
+                "name": "66f4fcf1f9984d7f857543e66b22bedd",
+                "query": {
+                  "datasetName": "ad0e0277",
+                  "fields": [
+                    {
+                      "name": "Country",
+                      "expression": "`Country`"
+                    },
+                    {
+                      "name": "column_370ba8a1202",
+                      "expression": "SUM(`count(1)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Country Count",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"title\":{\"text\":\"count\"},\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"Country\",\"id\":\"column_370ba8a1200\"},\"y\":[{\"column\":\"count(1)\",\"id\":\"column_370ba8a1202\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":true,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"column\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_370ba8a1202\":{\"type\":\"column\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":true,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
+                "query_name": "66f4fcf1f9984d7f857543e66b22bedd"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 3,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "b8ef9328",
+      "displayName": "DimProduct_Category_QuikAnalysis",
+      "layout": [
+        {
+          "widget": {
+            "name": "609b4517",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "3dd3ea1a",
+                  "fields": [
+                    {
+                      "name": "sum(Count)",
+                      "expression": "SUM(`Count`)"
+                    },
+                    {
+                      "name": "Category_Name",
+                      "expression": "`Category_Name`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(Count)",
+                  "displayName": "Count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "Category_Name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "mark": {
+                "layout": "stack"
+              },
+              "frame": {
+                "title": "Category_Name Count %",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "fc25bf69",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "3dd3ea1a",
+                  "fields": [
+                    {
+                      "name": "sum(Count)",
+                      "expression": "SUM(`Count`)"
+                    },
+                    {
+                      "name": "Category_Name",
+                      "expression": "`Category_Name`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "sum(Count)",
+                  "displayName": "Count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "Category_Name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "mark": {
+                "layout": "stack"
+              },
+              "frame": {
+                "title": "Category_Name Count",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "e1f48fb4",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "3dd3ea1a",
+                  "fields": [
+                    {
+                      "name": "Category_Name",
+                      "expression": "`Category_Name`"
+                    },
+                    {
+                      "name": "Sub_Category_Name",
+                      "expression": "`Sub_Category_Name`"
+                    },
+                    {
+                      "name": "sum(Count)",
+                      "expression": "SUM(`Count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Sub_Category_Name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Count)",
+                  "displayName": "Count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "Category_Name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "frame": {
+                "title": "Category_Name/Sub_Category_Name Count",
+                "showTitle": true
+              },
+              "mark": {
+                "layout": "stack"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "d6817c83",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "3dd3ea1a",
+                  "fields": [
+                    {
+                      "name": "Sub_Category_Name",
+                      "expression": "`Sub_Category_Name`"
+                    },
+                    {
+                      "name": "sum(Count)",
+                      "expression": "SUM(`Count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Sub_Category_Name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Count)",
+                  "displayName": "Count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "mark": {
+                "layout": "group"
+              },
+              "frame": {
+                "title": "Sub_Category_Name Count",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "784e7c9f",
+      "displayName": "DimProduct_Product_QuikAnalysis",
+      "layout": [
+        {
+          "widget": {
+            "name": "6b424c30",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b4a7ed3f",
+                  "fields": [
+                    {
+                      "name": "sum(Count)",
+                      "expression": "SUM(`Count`)"
+                    },
+                    {
+                      "name": "Product_Line",
+                      "expression": "`Product_Line`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "sum(Count)",
+                  "displayName": "count",
+                  "axis": {
+                    "title": "count"
+                  },
+                  "scale": {
+                    "type": "quantitative",
+                    "domain": {
+                      "min": 0
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "Product_Line",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "mark": {
+                "layout": "group"
+              },
+              "frame": {
+                "title": "Product_Line Count",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "fe7acc8c",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b4a7ed3f",
+                  "fields": [
+                    {
+                      "name": "sum(Count)",
+                      "expression": "SUM(`Count`)"
+                    },
+                    {
+                      "name": "Product_Line",
+                      "expression": "`Product_Line`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(Count)",
+                  "displayName": "count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "Product_Line",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "mark": {
+                "layout": "stack"
+              },
+              "frame": {
+                "title": "Product_Line Count %",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "ed7de5d4",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b4a7ed3f",
+                  "fields": [
+                    {
+                      "name": "Product_name",
+                      "expression": "`Product_name`"
+                    },
+                    {
+                      "name": "Count",
+                      "expression": "`Count`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Product_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "Count",
+                  "displayName": "count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Product name Count",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "1c02c879",
+      "displayName": "DimProduct_OverTime_QuikAnalysis",
+      "layout": [
+        {
+          "widget": {
+            "name": "b35b8672",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "e6c9a50a",
+                  "fields": [
+                    {
+                      "name": "Sub_Category_Name",
+                      "expression": "`Sub_Category_Name`"
+                    },
+                    {
+                      "name": "Product_Start_Date",
+                      "expression": "`Product_Start_Date`"
+                    },
+                    {
+                      "name": "count(Sub_Category_Name)",
+                      "expression": "COUNT(`Sub_Category_Name`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "Product_Start_Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "count(Sub_Category_Name)",
+                  "displayName": "count",
+                  "axis": {
+                    "title": "count"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "Sub_Category_Name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "mark": {
+                "layout": "layer"
+              },
+              "frame": {
+                "title": "Sub_Category_name over time",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 8,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "e13e5be3",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "e6c9a50a",
+                  "fields": [
+                    {
+                      "name": "Category_Name",
+                      "expression": "`Category_Name`"
+                    },
+                    {
+                      "name": "Product_Start_Date",
+                      "expression": "`Product_Start_Date`"
+                    },
+                    {
+                      "name": "count(Category_Name)",
+                      "expression": "COUNT(`Category_Name`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "Product_Start_Date",
+                  "axis": {
+                    "hideGrid": false,
+                    "hideLabels": false,
+                    "hideTitle": false
+                  },
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "count(Category_Name)",
+                  "axis": {
+                    "title": "count"
+                  },
+                  "displayName": "count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "Category_Name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Category_name over time",
+                "showTitle": true
+              },
+              "mark": {
+                "layout": "layer"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "e2f6dcea",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "e6c9a50a",
+                  "fields": [
+                    {
+                      "name": "Product_name",
+                      "expression": "`Product_name`"
+                    },
+                    {
+                      "name": "Product_Start_Date",
+                      "expression": "`Product_Start_Date`"
+                    },
+                    {
+                      "name": "count(Product_name)",
+                      "expression": "COUNT(`Product_name`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "Product_Start_Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "count(Product_name)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "Product_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Product_name over time",
+                "showTitle": true
+              },
+              "mark": {
+                "layout": "layer"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "2ed4fd56",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "e6c9a50a",
+                  "fields": [
+                    {
+                      "name": "Product_Line",
+                      "expression": "`Product_Line`"
+                    },
+                    {
+                      "name": "Product_Start_Date",
+                      "expression": "`Product_Start_Date`"
+                    },
+                    {
+                      "name": "count(Product_Line)",
+                      "expression": "COUNT(`Product_Line`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "Product_Start_Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "count(Product_Line)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "Product_Line",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "mark": {
+                "layout": "layer"
+              },
+              "frame": {
+                "title": "Product_Line  over time",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "259d6b50",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "e6c9a50a",
+                  "fields": [
+                    {
+                      "name": "Maintenance",
+                      "expression": "`Maintenance`"
+                    },
+                    {
+                      "name": "Product_Start_Date",
+                      "expression": "`Product_Start_Date`"
+                    },
+                    {
+                      "name": "count(Maintenance)",
+                      "expression": "COUNT(`Maintenance`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "Product_Start_Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "count(Maintenance)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "Maintenance",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "mark": {
+                "layout": "layer"
+              },
+              "frame": {
+                "title": "Maintenance over time",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 18,
+            "width": 3,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "c6ce6278",
+      "displayName": "FactTable_Quick_Analysis",
+      "layout": [
+        {
+          "widget": {
+            "name": "f77d1894",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ee538706",
+                  "fields": [
+                    {
+                      "name": "yearly(Order_Date)",
+                      "expression": "DATE_TRUNC(\"YEAR\", `Order_Date`)"
+                    },
+                    {
+                      "name": "sum(Sales)",
+                      "expression": "SUM(`Sales`)"
+                    },
+                    {
+                      "name": "avg(Sales)",
+                      "expression": "AVG(`Sales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "yearly(Order_Date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "primary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(Sales)",
+                        "displayName": "Sum Of Sales"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative"
+                    }
+                  },
+                  "secondary": {
+                    "fields": [
+                      {
+                        "fieldName": "avg(Sales)",
+                        "displayName": "Avg Sales"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative",
+                      "reverse": false
+                    },
+                    "axis": {
+                      "hideLabels": false,
+                      "hideGrid": false
+                    }
+                  }
+                },
+                "color": {
+                  "legend": {
+                    "position": "top"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Sum/AVG Sales-Yearly",
+                "showTitle": true
+              },
+              "mark": {
+                "layout": "layer"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "0046eac4",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ee538706",
+                  "fields": [
+                    {
+                      "name": "weekly(Order_Date)",
+                      "expression": "DATE_TRUNC(\"WEEK\", `Order_Date`)"
+                    },
+                    {
+                      "name": "sum(Sales)",
+                      "expression": "SUM(`Sales`)"
+                    },
+                    {
+                      "name": "avg(Sales)",
+                      "expression": "AVG(`Sales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "weekly(Order_Date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "primary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(Sales)",
+                        "displayName": "Sum Of Sales"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative"
+                    }
+                  },
+                  "secondary": {
+                    "fields": [
+                      {
+                        "fieldName": "avg(Sales)",
+                        "displayName": "Avg Sales"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative",
+                      "reverse": false
+                    },
+                    "axis": {
+                      "hideLabels": false,
+                      "hideGrid": false
+                    }
+                  }
+                },
+                "color": {
+                  "legend": {
+                    "position": "top"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Sum/AVG Sales-Weekly",
+                "showTitle": true
+              },
+              "mark": {
+                "layout": "layer"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "592941a8",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ee538706",
+                  "fields": [
+                    {
+                      "name": "daily(Order_Date)",
+                      "expression": "DATE_TRUNC(\"DAY\", `Order_Date`)"
+                    },
+                    {
+                      "name": "sum(Sales)",
+                      "expression": "SUM(`Sales`)"
+                    },
+                    {
+                      "name": "avg(Sales)",
+                      "expression": "AVG(`Sales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "daily(Order_Date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "primary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(Sales)",
+                        "displayName": "Sum Of Sales"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative"
+                    }
+                  },
+                  "secondary": {
+                    "fields": [
+                      {
+                        "fieldName": "avg(Sales)",
+                        "displayName": "Avg Sales"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative",
+                      "reverse": false
+                    },
+                    "axis": {
+                      "hideLabels": false,
+                      "hideGrid": false
+                    }
+                  }
+                },
+                "color": {
+                  "legend": {
+                    "position": "top"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Sum/AVG Sales-Daily",
+                "showTitle": true
+              },
+              "mark": {
+                "layout": "layer"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "46330a58",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ee538706",
+                  "fields": [
+                    {
+                      "name": "monthly(Order_Date)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `Order_Date`)"
+                    },
+                    {
+                      "name": "sum(Sales)",
+                      "expression": "SUM(`Sales`)"
+                    },
+                    {
+                      "name": "avg(Sales)",
+                      "expression": "AVG(`Sales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(Order_Date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "primary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(Sales)",
+                        "displayName": "Sum Of Sales"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative"
+                    }
+                  },
+                  "secondary": {
+                    "fields": [
+                      {
+                        "fieldName": "avg(Sales)",
+                        "displayName": "Avg Sales"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative",
+                      "reverse": false
+                    },
+                    "axis": {
+                      "hideLabels": false,
+                      "hideGrid": false
+                    }
+                  }
+                },
+                "color": {
+                  "legend": {
+                    "position": "top"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Sum/AVG Sales-Monthly",
+                "showTitle": true
+              },
+              "mark": {
+                "layout": "layer"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 6,
+            "width": 3,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "e8333ca2",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "525512d4",
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": []
+              },
+              "frame": {
+                "showTitle": true
+              },
+              "disallowAll": false
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS"
+    },
+    {
+      "name": "7dacfbb1",
+      "displayName": "Customer_Info_Product_Info__FactTable_Quick_Analysis",
+      "layout": [
+        {
+          "widget": {
+            "name": "42123a86",
+            "multilineTextboxSpec": {
+              "lines": [
+                ""
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "93ad0812",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "9d47dece",
+                  "fields": [
+                    {
+                      "name": "Gender",
+                      "expression": "`Gender`"
+                    },
+                    {
+                      "name": "monthly(Order_Date)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `Order_Date`)"
+                    },
+                    {
+                      "name": "sum(Sales)",
+                      "expression": "SUM(`Sales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(Order_Date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Sales)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "Gender",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": false
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "626b4dd3",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "9d47dece",
+                  "fields": [
+                    {
+                      "name": "Gender",
+                      "expression": "`Gender`"
+                    },
+                    {
+                      "name": "yearly(Order_Date)",
+                      "expression": "DATE_TRUNC(\"YEAR\", `Order_Date`)"
+                    },
+                    {
+                      "name": "sum(Sales)",
+                      "expression": "SUM(`Sales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "yearly(Order_Date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Sales)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "Gender",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": false
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 2,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "56b6eeaa",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "9d47dece",
+                  "fields": [
+                    {
+                      "name": "monthly(Order_Date)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `Order_Date`)"
+                    },
+                    {
+                      "name": "sum(Sales)",
+                      "expression": "SUM(`Sales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 1,
+              "widgetType": "forecast-line",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(Order_Date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "original": {
+                    "fieldName": "sum(Sales)"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 8,
+            "width": 3,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
