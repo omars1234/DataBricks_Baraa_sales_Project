@@ -20,6 +20,12 @@ C. Gold Layer:
 - Dimensional Data Model (Business Transformation)  
 - Ready for BI and analysis  
 
+---
+
+### *Project Map*
+
+<img src="Project_infograph.png" width="1000" height="400" />
+
 ----
 ## *Feedback*
 
