@@ -71,7 +71,7 @@
         "USE CATALOG `bara_slaes_project`;\n",
         "USE SCHEMA `gold`;\n",
         "\n",
-        "SELECT  Order_Date,Ship_Date,Due_Date,Sales,Quantity,Price   FROM   bara_slaes_project.gold.factable;"
+        "SELECT  *   FROM   bara_slaes_project.gold.factable;"
       ]
     },
     {
@@ -79,20 +79,23 @@
       "displayName": "Customer Sales and Product Info Overview",
       "queryLines": [
         "SELECT \r\n",
-        "cust.marital_status,\r\n",
-        "cust.Gender,\r\n",
-        "cust.Country,\r\n",
-        "fact.Sales,\r\n",
-        "fact.Order_Date,\r\n",
-        "prod.Category_Name,\r\n",
-        "prod.Sub_Category_Name,\r\n",
-        "prod.Product_Line,\r\n",
-        "prod.Product_name\r\n",
-        " FROM bara_slaes_project.gold.dimcustomer_infO AS cust\r\n",
-        "LEFT JOIN bara_slaes_project.gold.factable AS fact\r\n",
-        "ON cust.Customer_ID=fact.Customer_ID\r\n",
+        "    cust.marital_status,\r\n",
+        "    cust.Gender,\r\n",
+        "    cust.Country,\r\n",
+        "    fact.Sales,\r\n",
+        "    fact.Order_Number,\r\n",
+        "    fact.Order_Date,\r\n",
+        "    fact.due_date,\r\n",
+        "    fact.ship_date,\r\n",
+        "    prod.Category_Name,\r\n",
+        "    prod.Sub_Category_Name,\r\n",
+        "    prod.Product_Line,\r\n",
+        "    prod.Product_name\r\n",
+        " FROM bara_slaes_project.gold.factable AS fact \r\n",
+        "LEFT JOIN bara_slaes_project.gold.dimcustomer_infO AS cust\r\n",
+        "ON fact.Customer_ID=cust.Customer_ID\r\n",
         "LEFT JOIN bara_slaes_project.gold.dimproduct_info AS prod\r\n",
-        "ON fact.Product_ID=prod.Product_ID"
+        "ON fact.Product_ID=prod.Product_ID;"
       ],
       "catalog": "bara_slaes_project",
       "schema": "gold"
@@ -1873,7 +1876,7 @@
           },
           "position": {
             "x": 0,
-            "y": 2,
+            "y": 14,
             "width": 3,
             "height": 6
           }
@@ -1934,7 +1937,7 @@
           },
           "position": {
             "x": 3,
-            "y": 2,
+            "y": 8,
             "width": 3,
             "height": 6
           }
@@ -1978,6 +1981,159 @@
                   "scale": {
                     "type": "quantitative"
                   }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 20,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "e6d1c0a6",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "9d47dece",
+                  "fields": [
+                    {
+                      "name": "count(Order_Number)",
+                      "expression": "COUNT(`Order_Number`)"
+                    },
+                    {
+                      "name": "yearly(Order_Date)",
+                      "expression": "DATE_TRUNC(\"YEAR\", `Order_Date`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "count(Order_Number)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "yearly(Order_Date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "9078a3d5",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "9d47dece",
+                  "fields": [
+                    {
+                      "name": "count(Order_Number)",
+                      "expression": "COUNT(`Order_Number`)"
+                    },
+                    {
+                      "name": "yearly(due_date)",
+                      "expression": "DATE_TRUNC(\"YEAR\", `due_date`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "count(Order_Number)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "yearly(due_date)",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 2,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "d267517e",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "9d47dece",
+                  "fields": [
+                    {
+                      "name": "count(Order_Number)",
+                      "expression": "COUNT(`Order_Number`)"
+                    },
+                    {
+                      "name": "yearly(ship_date)",
+                      "expression": "DATE_TRUNC(\"YEAR\", `ship_date`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "count(Order_Number)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "yearly(ship_date)",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
                 }
               }
             }
