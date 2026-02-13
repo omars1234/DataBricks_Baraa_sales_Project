@@ -26,6 +26,12 @@ C. Gold Layer:
 
 <img src="Project_infograph.png" width="1000" height="400" />
 
+
+
+###### *Bronze_layer Map*
+
+<img src="Bronze_layer.png" width="1000" height="400" />
+
 ----
 ## *Feedback*
 
