@@ -26,13 +26,28 @@ C. Gold Layer:
 
 <img src="Project_infograph.png" width="1000" height="400" />
 
+----------
 
-
-###### *Bronze_layer Map*
+###### *Poject Map*
 
 <img src="Bronze_layer.png" width="1000" height="400" />
 
-----
+----------
+
+
+###### *Project Pipeline*
+
+<img src="Data_Engeneering_Pipeline.PNG" width="1000" height="400" />
+
+----------
+
+
+###### *Project Data Model*
+
+
+<img src="Data_Model.png" width="1000" height="400" />
+
+----------
 ## *Feedback*
 
 *If you have any feedback, please reach out to us at omars.soub@gmail.com*
