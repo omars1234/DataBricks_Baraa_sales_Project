@@ -48,6 +48,15 @@ C. Gold Layer:
 <img src="Data_Model.png" width="1000" height="400" />
 
 ----------
+
+###### *Power Bi Project Report Link* ----> Still Under construction
+
+[*Power Bi Project Report Link*](https://app.powerbi.com/view?r=eyJrIjoiMzgxZmQzYWYtYTk4YS00NGU1LWE5NTktYTFmYmY2M2M4ZDRkIiwidCI6IjA5N2I0YWUwLWQwNmEtNGY4Mi1iODBhLTVmYWM1NTZjMDQzNyIsImMiOjl9)
+
+
+
+----------
+
 ## *Feedback*
 
 *If you have any feedback, please reach out to us at omars.soub@gmail.com*
